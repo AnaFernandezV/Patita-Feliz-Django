@@ -39,8 +39,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'app.apps.AppConfig', # el proyecto
-    'colorfield', # colores al admin
-    #'crispyforms', # bootstrap al form
+    'colorfield', # colores al admin    
+    'rest_framework',
+    'apiapp',
+    
    
 ]
 
@@ -82,8 +84,14 @@ WSGI_APPLICATION = 'tienda.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'dba_patitas',
+        'HOST': 'localhost',
+        'PORT': '3306',
+        'USER': 'root',
+        'PASSWORD': '',
+        'OPTIONS': {
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"}
     }
 }
 
@@ -135,5 +143,9 @@ import os
 MEDIA_URL = '/media/' # cuando las imágenes ya están guardadas
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/') # cuando vamos a guardar
 
-#CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+MESSAGE_STORAGE = "django.contrib.messages.storage.cookie.CookieStorage"
+
+LOGIN_REDIRECT_URL = '/perfil/'
+LOGOUT_REDIRECT_URL = '/'
 
