@@ -1,0 +1,93 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block contenido %}
+
+<!----wrap----->
+<div id="wrap">
+  <div class="row" style="margin-top: 30px;">
+    <div id="contenedor-menup">
+     <div class="col left l12 s12"> 
+         <div class="foto-perfil">
+             <img src="{% static 'app/img/dog.png' %}">
+             
+         </div>
+         <div class="menu-perfil">
+         <h4>Bienvenido {{ user.username }}</h4>
+         <hr>
+         <div class="link">
+          <div class="text"><a href="{% url 'perfil' %}"> Mi Perfil</a></div>
+        </div>
+        <hr>
+    <div class="link">
+      <div class="text"><a href="{% url 'pedido' user.id %}"> Mis pedidos</a></div>
+    </div>
+    <hr>
+     <div class="link">
+       <div class="text"><a href="{% url 'carrito' user.id %}"> Carrito de compra</a></div>
+     </div>
+     <hr>
+     <div class="link">
+       <div class="text"><a href="{% url 'direccion' %}"> Mis direcciones</a></div>
+     </div>
+     <hr>
+   
+     <div class="centrar">
+     <a href="{% url 'logout' %}'" class="waves-effect red darken-4 btn-small">Cerrar Sesión</a>
+     </div>
+       </div><!---div menu perfil-->
+     
+     </div><!---cierre columna central-->
+     </div><!----contenedor menu-->
+
+  <div id="seguimiento" class="col l8 s12 ">
+    <h4>Seguimiento de pedido</h4>
+    <section >
+          <p>Id Pedido: 881561654</p>
+        <ul class="seguimiento-contenido">
+            <li>
+              <h4>Validación</h4>
+              <img src="{% static 'app/img/validacion.png' %}">
+                
+                <p>Pedido recibido en patita feliz</p>
+            </li>
+            <li>
+              <h4>Preparación</h4>
+              <img src="{% static 'app/img/preparacion.png' %}">
+                
+                <p>Tú pedido esta siendo preparado por nuestro centro logístico</p>
+            </li>
+            <li>
+              <h4>Reparto</h4>
+              <img src="{% static 'app/img/reparto.png' %}">
+                
+                <p>Pedido entregado a la empresa de transporte</p>
+            </li>
+        </ul>
+        <ol class="progress-bar">
+          <li class="is-complete"><span>Validación</span></li>  
+          <li class="is-active"><span>Preparación</span></li>  
+          <li><span>Entregado</span></li>
+      
+          
+        </ol>
+    </section>
+    
+      </div>
+    
+        </div><!------cierra col 8-->
+    
+    <!----Script del menu del perfil---->
+    <script>
+        var links = document.getElementsByClassName('link')
+        for(var i = 0; i <= links.length; i++)
+           addClass(i)
+        
+        
+        function addClass(id){
+           setTimeout(function(){
+              if(id > 0) links[id-1].classList.remove('hover')
+              links[id].classList.add('hover')
+           }, id*750) 
+        }</script>
+
+{% endblock %}

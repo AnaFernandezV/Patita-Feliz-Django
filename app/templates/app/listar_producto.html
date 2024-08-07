@@ -1,0 +1,66 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block contenido %}
+<div id="wrap">
+    <div class="" style="margin-top: 30px; margin-bottom: 30px; ">
+    
+      <div class="col s6  light-blue lighten-5" style="padding: 10px;">
+        <h4 class="centrar">Lista de Productos</h4>
+        {% if perms.app.add_producto %}	
+        <a href="{% url 'agregar_producto' %}" class="waves-effect colorbtn-agregar btn-small">Agregar Producto</a>
+        {% endif %}
+        {% if perms.app.view_user %}	
+        <a href="{% url 'listar_usuario' %}" class="waves-effect colorbtn-agregar btn-small">Lista de Usuarios</a>
+        {% endif %}
+        <div class="row">
+          <form class="col s12">
+            <div class="row">
+              <div class="input-field col s12">
+                <table class="table table-condensed table-striped responsive-table">
+                    <thead>  
+                        <tr>
+                            <th>CODIGO</th>
+                            <th>NOMBRE</th>
+                            <th>PRECIO NORMAL</th>
+                            <th>PRECIO SUSCRIPTORES</th>
+                            <th>STOCK</th>
+                            <th>TIPO</th>
+                            <th>IMAGEN</th>
+                            <th>FECHA DE CREACIÓN</th>
+                            <th>FECHA MODIFICACIÓN</th>
+                            <th>OPCIONES</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for aux in listaProductos %}
+                        <tr>
+                            <td>{{ aux.codigo }}</td>
+                            <td>{{ aux.nombre }}</td>
+                            <td>{{ aux.precioNormal }}</td>
+                            <td>{{ aux.precioSub }}</td>
+                            <td>{{ aux.stock }}</td>
+                            <td>{{ aux.tipo }}</td>                          
+                            <td><img src="{{ aux.imagen.url }}" style="width:100px;" ></td>                            
+                            <td>{{ aux.created_at }}</td>
+                            <td>{{ aux.updated_at}}</td>
+                            <td>
+                                
+                            <a href="{% url 'modificar_producto' aux.codigo %}" class="waves-effect color-btn btn-small">Modificar</a>
+                            {% if perms.app.add_producto %}		
+                            <a onclick="confirmDelete({{ aux.codigo }})" class="waves-effect red darken-4 btn-small">Eliminar</a>
+                            {% endif %}
+                            </td>
+                            
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+  
+</div><!---cierre columna central-->
+</div>
+
+{% endblock %}

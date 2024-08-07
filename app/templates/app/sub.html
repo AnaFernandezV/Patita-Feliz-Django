@@ -1,0 +1,63 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block contenido %}
+
+<!----wrap----->
+<div id="wrap">
+
+<div class="container" style="margin-top: 30px; margin-bottom: 30px;" >
+
+{% if usuario == 1 %}
+  
+  <div class="col s6 light-blue lighten-5" style="padding: 10px;">
+    <h4 class="centrar">{{ user.username}} Gracias por estar suscrito</h4>
+    <p>Gracias a tú ayuda hemos podido salvar perritos y gatitos abandonados.</p>
+  
+    <div class="row" class="col s12">
+      <form action="" method="POST" enctype="multipart/form-data" > 
+        {% csrf_token %}
+        <div class="row">
+          <div class="input-field col s12">
+          </div>
+        </div>
+      
+        
+        <div class="iniciarS">
+          <input type="hidden" name="email" id="email" value="asdasd">
+          <button class="btn waves-effect color-btn" type="submit" name="action">Desuscribete :(</button>
+      </div>
+      </form>
+    </div>
+
+  </div><!---cierre columna s5 central-->
+
+  </div> <!----Cierra el primer row---->
+
+{% elif usuario == 0 %}
+  <div class="col s6 light-blue lighten-5" style="padding: 10px;">
+    <h4 class="centrar">{{ user.username}} Suscríbete</h4>
+    <p>Suscríbete por $5.000 mensuales y estarás ayudando a perritos y gatitos abandonados.</p>
+    <p>Con tú suscripción estarás obteniendo un 5% en todos los productos</p>
+  
+    <div class="row">
+      <form action="" method="POST" enctype="multipart/form-data" >
+        {% csrf_token %}
+        <div class="row">
+          
+        </div>
+      
+        
+        <div class="iniciarS">
+          <input type="hidden" name="email" id="email" value="{{user.email}}">
+          <button class="btn waves-effect color-btn" type="submit" name="action">Suscribete!</button>
+      </div>
+      </form>
+    </div>
+
+  </div><!---cierre columna s5 central-->
+
+  </div> <!----Cierra el primer row---->
+{% endif %}
+
+
+{% endblock %}

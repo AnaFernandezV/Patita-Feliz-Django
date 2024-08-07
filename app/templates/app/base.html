@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fundación Patita Feliz</title>
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="{% static 'app/css/materialize.min.css' %}">
+    <link rel="stylesheet" href="{% static 'app/css/materialize.css' %}">      
+     <link rel="stylesheet" href="{% static 'app/css/style.css' %}">
+     <link rel="icon"  type="image/png" href="{% static 'app/img/paw1.png' %}">
+     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!----cdn mensaje alerta---->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.4.8/sweetalert2.min.js" integrity="sha512-7x7HoEikRZhV0FAORWP+hrUzl75JW/uLHBbg2kHnPdFmScpIeHY0ieUVSacjusrKrlA/RsA2tDOBvisFmKc3xw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.4.8/sweetalert2.css" integrity="sha512-40/Lc5CTd+76RzYwpttkBAJU68jKKQy4mnPI52KKOHwRBsGcvQct9cIqpWT/XGLSsQFAcuty1fIuNgqRoZTiGQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="{% static 'app/js/mensajes.js' %}"></script>
+
+    <!---Menu side nav responsive -->
+     <script>  document.addEventListener('DOMContentLoaded', function() {
+       var elems = document.querySelectorAll('.sidenav');
+       var instances = M.Sidenav.init(elems);
+     });
+     </script>
+
+</head>
+<body>
+
+  <nav class="nav-wrapper color-header" style="height:auto;" >
+    <a href="#" data-target="mobile-demo" class="sidenav-trigger" style=" margin-left: 20px; margin-top: 30px;"><i class="material-icons">menu</i></a>
+     
+      
+
+      <a href="{% url 'index' %}"><img src="{% static 'app/img/titulo-logo.png' %}" class="logo"></a>      
+      
+      <ul id="nav-mobile" class="right hide-on-med-and-down" style=" margin-top:50px; margin-right: 30px;">
+        {% if user.is_authenticated %}
+        <li>Bienvenido {{ user.username }}</li>
+        {% endif %}
+        <li class=""><a href="{% url 'index' %}">Inicio</a></li>
+        <li><a href="{% url 'producto' %}">Productos</a></li>
+        <li><a href="http://127.0.0.1:8000/producto-api">Productos Api</a></li>
+        <li><a href="{% url 'sub' %}">Suscribete!</a></li>
+        <li><a href="{% url 'registro_usuario' %}">Regístrate</a></li>
+        
+        <!-- registro agregar usuario<li><a href="{% url 'registro' %}">Regístrate</a></li>--->
+        
+        {% if user.is_staff == 1 %}
+        <li><a href="http://127.0.0.1:8000/admin">Administración</a></li>
+        {% endif %}
+        {% if user.is_authenticated %}    
+        <li><a href="{% url 'perfil' %}">Mi perfil</a></li>
+        
+        <li><a href="{% url 'logout' %}">Cerrar Sesión</a></li>
+        {% else %}
+        <li><a href="{% url 'login' %}">Iniciar Sesión</a></li>
+        {% endif %}
+        
+        {% if user.is_authenticated %}   
+        <li><a href="{% url 'carrito' user.id %}"><img src="{% static 'app/img/carrito1.png' %}"></a></li>
+        {% endif %}
+      </ul>
+  </nav>
+    
+    <ul class="sidenav" id="mobile-demo">
+      <li class=""><a href="{% url 'index' %}">Inicio</a></li>
+      <li><a href="{% url 'producto' %}">Productos</a></li>
+      <li><a href="http://127.0.0.1:8000/producto-api">Productos Api</a></li>
+      <li><a href="{% url 'sub' %}">Suscribete!</a></li>
+      <li><a href="{% url 'registro_usuario' %}">Regístrate</a></li>
+      {% if user.is_staff == 1 %}
+      <li><a href="http://127.0.0.1:8000/admin">Administración</a></li>
+      {% endif %}
+      {% if user.is_authenticated %}
+      <li><a href="{% url 'logout' %}">Cerrar Sesión</a></li>
+      {% else %}
+      <li><a href="{% url 'login' %}">Iniciar Sesión</a></li>
+      {% endif %}
+      
+      {% if user.is_authenticated %}   
+      <li><a href="{% url 'carrito' user.id %}"><img src="{% static 'app/img/carrito1.png' %}"></a></li>
+      {% endif %}
+    </ul>
+<!----wrap----->
+<div id="wrap">
+
+{% block contenido %}
+
+{% endblock %}
+
+</div><!---cierre -la presentacion-->
+
+        <footer class="page-footer color-footer"  >
+            <div class="container">
+              <div class="row">
+                <div class="col l6 s12">
+                  <div id="redes" class="redes">
+                  <h5 class="white-text">Síguenos en nuestras redes sociales</h5>
+                  <img src="{% static 'app/img/instagram1.png' %}">
+                  <img src="{% static 'app/img/facebook1.png' %}">
+                  <img src="{% static 'app/img/twitter1.png' %}">
+                </div>
+                </div>
+                <div class="col l4 offset-l2 s12">
+                  <h5 class="white-text">Quiénes Somos</h5>
+                  <p>Somos una fundación sin fines de lucro que decidió lanzar su tienda de 
+                    accesorios para mascotas y así poder frenar el abandono de mascotas a través 
+                    de la educación de tenencia responsable, el rescate, rehabilitación y adopción de perros y 
+                    gatos.</p>
+                    {% if user.is_staff == 1 %}
+                    <a style="color:#FFFFFF" href="{% url 'listar_producto' %}">Portal Empleados</a>
+                    {% endif %}
+                </div>
+              </div>
+            </div>
+            <div class="footer-copyright">
+              
+              <div class="container">
+                  
+              <p class="center">© Todos los derechos Fundación Patita Feliz</p>
+              
+              </div>
+              
+            </div>
+          </footer>             
+        </div><!-------wrap-->
+     <!-- Compiled and minified JavaScript -->
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
+</html>

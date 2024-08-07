@@ -1,0 +1,48 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block contenido %}
+
+<!----wrap----->
+<div id="wrap">
+  <div class="container">
+
+      <section >
+        <h4>Personajes Rick And Morty</h4>
+        
+        <ul id="contenido-producto" >                 
+          <!------LISTA JSON------>
+        
+            {% for aux in listaRick %}
+              <li>
+              
+                {% if aux.image %}
+                <img src="{{ aux.image }}">
+                {% endif %}
+                <h5>{{ aux.name }}</h5>
+                <p>Status: {{ aux.status }}</p>
+                <p>Species: {{ aux.species }} </p>
+                <p>Type: {{ aux.type }}</p>
+                <hr>             
+  
+                <form action="" method="POST">
+                  {% csrf_token %}
+                  <input type="hidden" name="imagen" id="imagen" value="{{ aux.imagen }}" >
+                  <input type="hidden" name="codigo" id="codigo" value="{{ aux.codigo }}" >
+                  <input type="hidden" name="nombre" id="nombre" value="{{ aux.nombre }}" >           
+                  <input type="hidden" name="precio" id="precio" value="{{ aux.precioNormal }}" >               
+                  <input type="submit" value="Agregar al Carrito" class="color-btn btn-small">
+                </form>
+                
+              </li>
+  
+            {% endfor %}
+
+            
+
+             </ul>
+
+    </section> 
+        
+</div><!---cierre container-->
+
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block contenido %}
+
+    <div class="container" style="margin-top: 30px; margin-bottom: 30px; ">
+
+        <div class="col s6  light-blue lighten-5" style="padding:40px;">
+          <h4 class="centrar">Inicia Sesión</h4>
+        
+          <div class="row">
+            <form action="" method="POST">
+                {% csrf_token %}
+                {{ form }}
+            <div class="iniciarS">
+              <button type="submit" class="btn btn-success btnIniciarS">Iniciar Sesión</button>
+            </div><!----cierra la caja del boton-->
+              </form>
+            
+          </div>   
+        
+        
+        </div><!---cierre columna central-->
+      
+        </div> <!----Cierra el primer row---->
+
+{% endblock %}

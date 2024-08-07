@@ -1,0 +1,102 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block contenido %}
+
+<!----wrap----->
+<div id="wrap">
+<div class="row" style="margin-top: 30px;">
+ <div id="contenedor-menup">
+  <div class="col left l12 s12"> 
+      <div class="foto-perfil">
+          <img src="{% static 'app/img/dog.png' %}">
+          
+      </div>
+      <div class="menu-perfil">
+      <h4>Bienvenido {{ user.username }}</h4>
+      <hr>
+      <div class="link">
+        <div class="text"><a href="{% url 'perfil' %}"> Mi Perfil</a></div>
+      </div>
+      <hr>
+  <div class="link">
+    <div class="text"><a href="{% url 'pedido' user.id %}"> Mis pedidos</a></div>
+  </div>
+  <hr>
+  <div class="link">
+    <div class="text"><a href="{% url 'carrito' user.id %}"> Carrito de compra</a></div>
+  </div>
+  <hr>
+  <div class="link">
+    <div class="text"><a href="{% url 'direccion' %}"> Mis direcciones</a></div>
+  </div>
+  <hr>
+  
+  <div class="centrar">
+  <a href="{% url 'logout' %}" class="waves-effect red darken-4 btn-small">Cerrar Sesión</a>
+  </div>
+    </div><!---div menu perfil-->
+  
+  </div><!---cierre columna central-->
+  </div><!----contenedor menu-->
+    <div  class="col l9 s12" id="pedido"> 
+      
+      <section style="width: 90%; "  >
+        <h4>Mis pedidos</h4>
+        {% for aux in listaCompras %}
+              <ul id="pedido-producto" style="border: 3px solid  #0292c9;">
+                  <li>
+                    <img src="{{ aux.imagen.url }}" style="width:200px ;" >
+                  </li>
+                  <li>
+                    <h5>{{ aux.nombre }}</h5>
+                    <p>ID: {{ aux.codigo }}</p>
+                    <hr>
+                    {% if usuario == 1 %}
+                    <p>Precio sub : ${{ aux.precioSub }} </p>
+                    {% endif %}
+                    <p>Precio Normal: ${{ aux.precio }} </p>               
+                    <p>Cantidad: {{ aux.cantidad }}</p>
+                    <p>Estado: {{ aux.estado }}</p>
+                    
+                    <hr>
+                   
+                  </li>
+                </ul>
+              
+        {% endfor %}
+        <form action="{% url 'seguimiento' %}" method="POST" class="" enctype="multipart/form-data">
+
+          {% csrf_token %}
+                <input type="hidden" name="imagen" id="imagen" value="{{ aux.imagen }}" >
+                <input type="hidden" name="codigo" id="codigo" value="{{ aux.codigo }}" >
+                <input type="hidden" name="nombre" id="nombre" value="{{ aux.nombre }}" >  
+                <input type="hidden" name="cantidad" id="cantidad" value="{{ aux.cantidad }}" >         
+                <input type="hidden" name="precio" id="precio" value="{{ aux.precioNormal }}">
+                <input type="hidden" name="cantidad" id="cantidad" value="{{ aux.cantidad }}">
+                <input type="hidden" name="estado" id="estado" value="{{ aux.estado }}">
+                <input type="hidden" name="precioSub" id="precioSub" value="{{ aux.precioSub }}" >  
+  
+
+
+              <button class="btn waves-effect color-btn" type="submit" name="action">Ver Seguimiento</button>
+          </section >    
+        
+        
+
+</div> <!----Cierra el primer row---->
+
+    <!----Script del menu del perfil---->
+    <script>
+        var links = document.getElementsByClassName('link')
+        for(var i = 0; i <= links.length; i++)
+           addClass(i)
+        
+        
+        function addClass(id){
+           setTimeout(function(){
+              if(id > 0) links[id-1].classList.remove('hover')
+              links[id].classList.add('hover')
+           }, id*750) 
+        }</script>
+
+{% endblock %}

@@ -1,0 +1,103 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block contenido %}
+
+
+<div class="row" style="margin-top: 30px;">
+  
+  <div id="contenedor-menup">
+  <div class="col s12"> 
+      <div class="foto-perfil">
+          <img src="{% static 'app/img/dog.png' %}">
+          
+      </div>
+      <div class="menu-perfil">
+      <h4>Bienvenido {{ user.username }}</h4>
+      <hr>
+      <div class="link">
+        <div class="text"><a href="{% url 'perfil' %}"> Mi Perfil</a></div>
+      </div>
+      <hr>
+  <div class="link">
+    <div class="text"><a href="{% url 'pedido' user.id %}"> Mis pedidos</a></div>
+  </div>
+  <hr>
+  <div class="link">
+      <div class="text"><a href="{% url 'carrito' user.id %}"> Carrito de compra</a></div>
+  </div>
+  <hr>
+  <div class="link">
+      <div class="text"><a href="{% url 'direccion' %}"> Mis direcciones</a></div>
+  </div>
+  <hr>
+
+  <div class="centrar">
+    <a href="{% url 'logout' %}" class="waves-effect red darken-4 btn-small">Cerrar Sesión</a>
+    </div>
+      </div><!---div menu perfil-->  
+    
+    </div><!---cierre columna central col 12-->
+  </div><!---contenedor menu-->
+  
+    <div  class="col l9 s12" id="pedido">   
+    <section style="width: 90%; "  >
+    <h4>Carrito de compra</h4>
+    {% for aux in listarCarrito %}
+          <ul id="pedido-producto" style="border: 3px solid  #0292c9;">
+              <li>
+                <img src="{{ aux.imagen.url }}" >
+              </li>
+              <li>
+                <h5>{{ aux.nombre }}</h5>
+                <p>ID: {{ aux.codigo }}</p>
+                <hr>            
+                <!----<p>Precio sub : ${{ aux.precioSub }} </p>---->           
+                <p>Precio Normal: ${{ aux.precio }} </p>
+                {% if usuario == 1 %}
+                <span>Precio Suscriptor: ${{ aux.precioSub }} </span>
+                {% endif %}
+                <p>Cantidad: {{ aux.cantidad }}
+                </p>
+             
+                <hr>
+                <a href="{% url 'eliminar_carrito' aux.codigo %}" class="waves-effect red darken-3 btn-small">Eliminar producto</a>
+              </li>
+              
+          </ul>
+
+    {% endfor %}
+      </section >    
+      <section style= "width: 90%; margin-top:-30px;">
+        <h4>Su total es:</h4>
+      <ul id="pedido-producto" style="border: 3px solid #0292c9;">
+        <!-----si el usuario es suscriptor---->
+        {% if usuario == 1 %}
+        <li ><span style="font-size:25px ;">Descuento: ${{ descuento }}</span></li>
+        
+        <li style="font-size: 25px; font-weight: bold;">Subtotal : ${{ total }}</li>
+        
+        <hr style="border: solid 1px #0292c9 ;">
+       
+        <li style="font-size:25px; color: #c9001b; font-weight: bold;">Total: ${{ subtotal }}</li>
+        {% endif %}
+
+        <!-----si el usuario NO es suscriptor---->
+        {% if usuario == 0 %}                   
+        <li style="font-size:25px; color: #c9001b; font-weight: bold;">Total: ${{ total }}</li>
+
+        {% endif %}
+      </ul>
+      <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <input type="submit" value="Pagar" style="width:150px;" class="color-btn btn-small">
+
+
+      </form>
+     </section>     
+  
+    </div>
+
+  
+</div>
+{% endblock %}

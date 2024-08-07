@@ -1,0 +1,42 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block contenido %}
+
+  <div class="container">    
+    <div class="detalle-producto">
+      
+    <section >
+      <h4>Detalle Producto</h4>
+            <ul id="detalle-producto">
+            
+                <li>
+                  <img src="{{ detalleProducto.imagen.url }}">
+                </li>
+                <li>
+                  <h5>{{ detalleProducto.nombre }}</h5>
+                  <p> ID: {{ detalleProducto.codigo }}</p>                  <hr>                  
+                  <p>Precio Normal </p><s>${{ detalleProducto.precioNormal }}</s>
+                  <p>Precio Suscriptor </p><span>${{ detalleProducto.precioSub }}</span>                  
+                  <p>En Stock: {{ detalleProducto.stock }}</p>
+                  <hr>
+                  <form action="{% url 'guardarcarrito' %}" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="imagen" id="imagen" value="{{ detalleProducto.imagen }}" >
+                    <input type="hidden" name="codigo" id="codigo" value="{{ detalleProducto.codigo }}" >
+                    <input type="hidden" name="nombre" id="nombre" value="{{ detalleProducto.nombre }}" >
+                    <input type="hidden" name="tipo" id="tipo" value="{{ detalleProducto.tipo }}" >
+                    <input type="hidden" name="precioNormal" id="precioNormal" value="{{ detalleProducto.precioNormal }}" >             
+                    <input type="hidden" name="precioSub" id="precioSub" value="{{ detalleProducto.precioSub }}" >
+                    <input type="hidden" name="stock" id="stock" value="{{ detalleProducto.stock }}" >                 
+                    <input type="submit" value="Agregar al Carrito" class="color-btn btn-small">
+                  </form>
+                </li>
+                
+            </ul>
+        </section>
+      
+      </div>
+
+</div><!---cierre container-->
+
+{% endblock %}

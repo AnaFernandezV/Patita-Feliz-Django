@@ -1,0 +1,45 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block contenido %}
+
+<!----wrap----->
+<div id="wrap">
+<div class="container" style="margin-top: 30px; margin-bottom: 30px; ">
+
+  <div class="col s6  light-blue lighten-5" style="padding: 10px;">
+    <h4 class="centrar">Inicia Sesión</h4>
+  
+    <div class="row">
+      <form class="col s12">
+  
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="email" type="email" class="validate">
+            <label for="email">Email</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="password" type="password" class="validate">
+            <label for="password">Password</label>
+          </div>
+       
+        </div>
+        <div class="olvidopass">
+          <a href="">¿Olvidó su contraseña?</a>
+        </div>
+        
+        <div class="iniciarS">
+        <a href="{% url 'perfil' %}" class="waves-effect waves-light btn red darken-2" name="btnIniciarS" 
+        id="btnIniciarS" type="submit">Iniciar Sesión</a>
+      </div>
+      </form>
+    </div>
+  
+  
+  
+  </div><!---cierre columna central-->
+
+  </div> <!----Cierra el primer row---->
+
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block contenido %}
+<div id="slider"> 
+
+</div><!----cierre slider-->
+
+<div class="row "><!----la presentacion-->
+  <div class="col s2"></div>
+  <div class="col s8 ">
+    <section >
+      
+      <ul class="iconos-contenido">
+          <li>
+            <a href="{% url 'sub' %}"><img src="{% static 'app/img/pet-house.png' %}"></a>
+              <h4>Subscribete</h4>
+              <p>Obten descuentos en tu compra</p>
+          </li>
+          <li>
+            <a href="{% url 'producto' %}"><img src="{% static 'app/img/clothes-donation.png' %}"></a>
+              <h4>Compra</h4>
+              <p>Accesorios para tu peludo</p>
+          </li>
+          <li>
+            <a href="https://www.paypal.com/cl/home"><img src="{% static 'app/img/charity.png' %}"></a>
+              <h4>Dona</h4>
+              <p>Ayuda a nuestros peludos</p>
+          </li>
+      </ul>
+  </section>         
+    
+</div><!-----cierre col 8-->
+
+<div class="col s2"></div>
+
+</div><!---cierre -la presentacion-->
+
+{% endblock %}
